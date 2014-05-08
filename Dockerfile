@@ -40,11 +40,9 @@ USER root
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
 ADD supervisord.cfg /supervisord.cfg
-ADD start /start
+ADD start* /
 
 RUN sed -i 's@daemonize yes@daemonize no@' /etc/redis/redis.conf && mkdir -p /var/run/sshd
 
 # Start everything
 EXPOSE 22 80
-
-# RUN bundle exec rake assets:precompile RAILS_ENV=production
