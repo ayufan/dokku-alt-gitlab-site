@@ -15,7 +15,6 @@ onexit() {
 }
 trap onexit SIGTERM SIGINT EXIT
 
-mkdir -p /var/run/sshd
 /usr/sbin/sshd
 /usr/bin/redis-server /etc/redis/redis.conf
 

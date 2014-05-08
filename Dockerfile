@@ -42,5 +42,7 @@ ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/config.yml /home/git/gitlab-shell/config.yml
 ADD start /start
 
+RUN mkdir -p /var/run/sshd && sed '/pam_loginuid.so/s/^/#/g' -i  /etc/pam.d/*
+
 # Start everything
 EXPOSE 22 8080
