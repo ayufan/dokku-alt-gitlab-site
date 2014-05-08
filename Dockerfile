@@ -16,9 +16,6 @@ RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx
 RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx && \
 	mv gitlab-shell-1.9.4 gitlab-shell
 
-ADD gitlab/ /home/git/gitlab/config/
-ADD gitlab-shell/ /home/git/gitlab-shell/
-
 RUN chmod -R u+rwX gitlab/log/ && \
 	chmod -R u+rwX gitlab/tmp/ && \
 	chmod -R u+rwX gitlab/tmp/pids/ && \
@@ -32,9 +29,13 @@ RUN git config --global user.name "GitLab" && \
 	git config --global user.email "gitlab@localhost" && \
 	git config --global core.autocrlf input
 
-WORKDIR /home/git/gitlab
-RUN bundle install --deployment --without development test postgres aws
-RUN bundle exec rake assets:precompile RAILS_ENV=production
-
 WORKDIR /home/git/gitlab-shell
 RUN bundle install --deployment
+
+WORKDIR /home/git/gitlab
+RUN bundle install --deployment --without development test postgres aws
+
+# add configs at the end
+ADD gitlab/ /home/git/gitlab/config/
+ADD gitlab-shell/ /home/git/gitlab-shell/
+RUN bundle exec rake assets:precompile RAILS_ENV=production
