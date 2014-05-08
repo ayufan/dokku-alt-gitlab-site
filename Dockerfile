@@ -18,8 +18,10 @@ RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx
 RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx && \
 	mv gitlab-shell-1.9.4 gitlab-shell
 
-ADD gitlab/ gitlab/config/
-ADD gitlab-shell/ gitlab-shell/
+ADD gitlab/ /home/git/gitlab/config/
+ADD gitlab-shell/ /home/git/gitlab-shell/
+
+RUN ls -al /home/git/gitlab/config/
 
 RUN chmod -R u+rwX gitlab/log/ && \
 	chmod -R u+rwX gitlab/tmp/ && \
