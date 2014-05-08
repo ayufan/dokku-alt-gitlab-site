@@ -40,9 +40,9 @@ USER root
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
 ADD supervisord.cfg /supervisord.cfg
+ADD start /start
 
 # Start everything
 EXPOSE 22 80
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.cfg"]
 
 # RUN bundle exec rake assets:precompile RAILS_ENV=production
