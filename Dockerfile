@@ -17,7 +17,7 @@ RUN mkdir -p /home/git/gitlab/log/ && \
 	chown -R git /home/git/gitlab/log/ && \
 	chown -R git /home/git/gitlab/tmp/ && \
 	chmod -R u+rwX /home/git/gitlab/log/ && \
-	chmod -R u+rwX /home/git/gitlab/tmp/ \
+	chmod -R u+rwX /home/git/gitlab/tmp/ && \
 	chmod -R u+rwX /home/git/gitlab/tmp/pids/ && \
 	chmod -R u+rwX /home/git/gitlab/tmp/sockets/ && \
 	chmod -R u+rwX /home/git/gitlab/public/uploads
