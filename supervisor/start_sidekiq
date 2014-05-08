@@ -2,4 +2,4 @@
 
 source /app/.env
 cd /home/git/gitlab
-exec bundle exec sidekiq -q post_receive,mailer,system_hook,project_web_hook,common,default,gitlab_shell RAILS_ENV=PRODUCTION
+exec bundle exec sidekiq -q post_receive -q mailer -q system_hook -q project_web_hook -q gitlab_shell -q common -q default -e production -P /home/git/gitlab/tmp/pids/sidekiq.pid >> /home/git/gitlab/log/sidekiq.log 2>&1
