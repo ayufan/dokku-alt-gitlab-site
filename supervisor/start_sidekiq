@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source /app/.profile.d/*
+source /app/.env
 cd /home/git/gitlab
 exec bundle exec sidekiq -q post_receive,mailer,system_hook,project_web_hook,common,default,gitlab_shell RAILS_ENV_PRODUCTION
