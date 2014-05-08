@@ -32,6 +32,7 @@ RUN mkdir gitlab-satellites && \
 	chmod u+rwx,g+rx,o-rwx gitlab-satellites
 
 USER git
+ENV HOME /home/git
 
 RUN git config --global user.name "GitLab" && \
 	git config --global user.email "gitlab@localhost" && \
