@@ -34,7 +34,7 @@ RUN mkdir gitlab-satellites && \
 USER git
 
 RUN git config --global user.name "GitLab" && \
-	git -H git config --global user.email "gitlab@localhost" && \
+	git config --global user.email "gitlab@localhost" && \
 	git config --global core.autocrlf input
 
 WORKDIR /home/git/gitlab
