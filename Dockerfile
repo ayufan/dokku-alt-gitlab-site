@@ -3,6 +3,7 @@ MAINTAINER Kamil Trzciński <ayufan@ayufan.eu>
 
 RUN apt-get update -y
 RUN apt-get install -y sudo build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate git-core ruby2.0-dev bundler mysql-client libmysqlclient-dev openssh-server ca-certificates supervisor
+RUN apt-get install -y redis-server
 
 RUN adduser --disabled-login --gecos 'GitLab' git
 
