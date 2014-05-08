@@ -38,7 +38,7 @@ RUN bundle install --deployment --without development test postgres aws
 # add configs at the end
 USER root
 ADD gitlab/ /home/git/gitlab/config/
-ADD gitlab-shell/ /home/git/gitlab-shell/
+ADD gitlab-shell/config.yml /home/git/gitlab-shell/config.yml
 ADD supervisor/ /supervisor
 
 RUN ln -sf /supervisor/start / && \
