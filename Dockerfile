@@ -39,8 +39,7 @@ RUN bundle install --deployment --without development test postgres aws
 USER root
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
-ADD supervisord.cfg /supervisord.cfg
-ADD start* /
+ADD supervisor/ /
 
 RUN sed -i 's@daemonize yes@daemonize no@' /etc/redis/redis.conf && mkdir -p /var/run/sshd
 
