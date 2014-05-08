@@ -38,8 +38,10 @@ RUN bundle install --deployment --without development test postgres aws
 # add configs at the end
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
-ADD supervisord.cfg 
+ADD supervisord.cfg /supervisord.cfg
+
+# Start everything
 EXPOSE 22 80
-ENTRYPOINT 
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.cfg"]
 
 # RUN bundle exec rake assets:precompile RAILS_ENV=production
