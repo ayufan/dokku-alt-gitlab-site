@@ -42,6 +42,8 @@ ADD gitlab-shell/ /home/git/gitlab-shell/
 ADD supervisord.cfg /supervisord.cfg
 ADD start /start
 
+RUN sed -i 's@daemonize yes@daemonize no@' /etc/redis/redis.conf && mkdir -p /var/run/sshd
+
 # Start everything
 EXPOSE 22 80
 
