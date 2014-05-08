@@ -37,7 +37,9 @@ RUN bundle install --deployment --without development test postgres aws
 
 # add configs at the end
 USER root
-RUN rm -rf /home/git/gitlab-shell && \
+
+WORKDIR /home/git
+RUN rm -rf gitlab-shell && \
 	curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.3.tar.gz | tar -zx && \
 	mv gitlab-shell-1.9.3 gitlab-shell
 
