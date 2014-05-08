@@ -34,8 +34,8 @@ RUN bundle install --deployment
 
 WORKDIR /home/git/gitlab
 RUN bundle install --deployment --without development test postgres aws
+RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 # add configs at the end
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
-RUN bundle exec rake assets:precompile RAILS_ENV=production
