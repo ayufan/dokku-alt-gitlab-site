@@ -12,8 +12,9 @@ ADD https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz /home/git/git
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
 
-
-RUN chown -R git /home/git/gitlab/log/ && \
+RUN mkdir -p /home/git/gitlab/log/ && \
+	mkdir -p /home/git/gitlab/tmp/ && \
+	chown -R git /home/git/gitlab/log/ && \
 	chown -R git /home/git/gitlab/tmp/ && \
 	chmod -R u+rwX /home/git/gitlab/log/ && \
 	chmod -R u+rwX /home/git/gitlab/tmp/ \
