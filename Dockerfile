@@ -13,8 +13,8 @@ ENV HOME /home/git
 RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx && \
 	mv gitlabhq-6.8.1 gitlab
 
-RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx && \
-	mv gitlab-shell-1.9.4 gitlab-shell
+RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.3.tar.gz | tar -zx && \
+	mv gitlab-shell-1.9.3 gitlab-shell
 
 RUN chmod -R u+rwX gitlab/log/ && \
 	chmod -R u+rwX gitlab/tmp/ && \
@@ -37,11 +37,6 @@ RUN bundle install --deployment --without development test postgres aws
 
 # add configs at the end
 USER root
-
-WORKDIR /home/git
-RUN rm -rf gitlab-shell && \
-	curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.3.tar.gz | tar -zx && \
-	mv gitlab-shell-1.9.3 gitlab-shell
 
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/config.yml /home/git/gitlab-shell/config.yml
