@@ -6,15 +6,16 @@ RUN apt-get install -y sudo build-essential zlib1g-dev libyaml-dev libssl-dev li
 
 RUN adduser --disabled-login --gecos 'GitLab' git
 
-ADD https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz /home/git/gitlab/
-ADD https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz /home/git/gitlab-shell/
+RUN curl https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -x -C /home/git/ && \
+	mv gitlabhq-6.8.1 gitlab
+
+RUN curl https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -x -C /home/git/ && \
+	mv gitlab-shell-1.9.4 gitlab-shell
 
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
 
-RUN mkdir -p /home/git/gitlab/log/ && \
-	mkdir -p /home/git/gitlab/tmp/ && \
-	chown -R git /home/git/gitlab/log/ && \
+RUN chown -R git /home/git/gitlab/log/ && \
 	chown -R git /home/git/gitlab/tmp/ && \
 	chmod -R u+rwX /home/git/gitlab/log/ && \
 	chmod -R u+rwX /home/git/gitlab/tmp/ && \
