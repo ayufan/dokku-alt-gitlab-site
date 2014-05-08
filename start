@@ -1,0 +1,24 @@
+#!/bin/bash
+
+source /app/.env
+
+RAILS_ENV=${RAILS_ENV:=production}
+
+onexit() {
+  echo SIGINT received
+  echo sending SIGTERM to all processes
+  children=$(ps --ppid=$$ -o pid='')
+  kill -- $children &> /dev/null
+  sleep 8s
+}
+trap onexit SIGTERM SIGINT EXIT
+
+/usr/sbin/sshd
+/usr/bin/redis-server /etc/redis/redis.conf
+
+cd /home/git/gitlab
+su git -c "bundle exec rake assets:precompile"
+su git -c "script/web start"
+su git -c "script/background_jobs start"
+
+wait
