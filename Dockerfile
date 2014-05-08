@@ -46,4 +46,4 @@ RUN ln -sf /supervisor/start / && \
 	mkdir -p /var/run/sshd
 
 # Start everything
-EXPOSE 22 80
+EXPOSE 22 8080

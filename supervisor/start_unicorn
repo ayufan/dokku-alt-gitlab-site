@@ -3,4 +3,4 @@
 source /app/.env
 cd /home/git/gitlab
 bundle exec rake assets:precompile RAILS_ENV=production
-exec bundle exec unicorn_rails -p 80 -E production -c "config/unicorn.rb"
+exec bundle exec unicorn_rails -p 8080 -E production -c "config/unicorn.rb"
