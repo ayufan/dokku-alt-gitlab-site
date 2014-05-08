@@ -4,6 +4,8 @@ MAINTANER Kamil Trzciński <ayufan@ayufan.eu>
 RUN apt-get update -y
 RUN apt-get install -y sudo build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate git-core ruby2.0-dev bundler mysql-client libmysqlclient-dev openssh-server
 
+RUN apt-get install -y ca-certificates supervisord
+
 RUN adduser --disabled-login --gecos 'GitLab' git
 
 RUN curl https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx -C /home/git/ && \
