@@ -36,9 +36,10 @@ WORKDIR /home/git/gitlab
 RUN bundle install --deployment --without development test postgres aws
 
 # add configs at the end
-ENV DATABASE_URL mysql2://localhost/gitlab
-ENV REDIS_URL redis://localhost:6379
-
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
-RUN bundle exec rake assets:precompile RAILS_ENV=production
+ADD supervisord.cfg 
+EXPOSE 22 80
+ENTRYPOINT 
+
+# RUN bundle exec rake assets:precompile RAILS_ENV=production
