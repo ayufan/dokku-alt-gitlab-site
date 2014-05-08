@@ -20,8 +20,8 @@ mkdir -p /var/run/sshd
 /usr/bin/redis-server /etc/redis/redis.conf
 
 cd /home/git/gitlab
-# su git -c "bundle exec rake assets:precompile RAILS_ENV=$RAILS_ENV"
+su git -c "bundle exec rake assets:precompile RAILS_ENV=$RAILS_ENV"
 su git -c "bundle exec unicorn_rails -c config/unicorn.rb -E $RAILS_ENV -p 8080" &
-su git -c "bundle exec sidekiq -q post_receive,mailer,system_hook,project_web_hook,gitlab_shell,common,default -e $RAILS_ENV -P tmp/pids/sidekiq.pd >> log/sidekiq.log 2>&1" &
+su git -c "bundle exec sidekiq -q post_receive,mailer,system_hook,project_web_hook,gitlab_shell,common,default -e $RAILS_ENV -P tmp/pids/sidekiq.pd" >> log/sidekiq.log 2>&1 &
 
 wait
