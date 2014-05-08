@@ -10,11 +10,8 @@ USER git
 WORKDIR /home/git
 ENV HOME /home/git
 
-RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx && \
-	mv gitlabhq-6.8.1 gitlab
-
-RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.3.tar.gz | tar -zx && \
-	mv gitlab-shell-1.9.3 gitlab-shell
+RUN git clone https://github.com/gitlabhq/gitlabhq.git gitlab -b v6.8.1 --depth=1
+RUN git clone https://github.com/gitlabhq/gitlab-shell.git gitlab-shell -b v1.9.3 --depth=1
 
 RUN chmod -R u+rwX gitlab/log/ && \
 	chmod -R u+rwX gitlab/tmp/ && \
