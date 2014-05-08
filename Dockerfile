@@ -39,9 +39,11 @@ RUN bundle install --deployment --without development test postgres aws
 USER root
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
-ADD supervisor/ /
+ADD supervisor/ /supervisor
 
-RUN sed -i 's@daemonize yes@daemonize no@' /etc/redis/redis.conf && mkdir -p /var/run/sshd
+RUN ln -sf /supervisor/start / && \
+	sed -i 's@daemonize yes@daemonize no@' /etc/redis/redis.conf && \
+	mkdir -p /var/run/sshd
 
 # Start everything
 EXPOSE 22 80
