@@ -37,6 +37,10 @@ RUN bundle install --deployment --without development test postgres aws
 
 # add configs at the end
 USER root
+RUN rm -rf /home/git/gitlab-shell && \
+	curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.3.tar.gz | tar -zx && \
+	mv gitlab-shell-1.9.3 gitlab-shell
+
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/config.yml /home/git/gitlab-shell/config.yml
 ADD start /start
