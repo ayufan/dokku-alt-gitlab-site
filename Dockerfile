@@ -8,7 +8,9 @@ RUN apt-get install -y ca-certificates supervisor
 
 RUN adduser --disabled-login --gecos 'GitLab' git
 
+USER git
 WORKDIR /home/git
+ENV HOME /home/git
 
 RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx && \
 	mv gitlabhq-6.8.1 gitlab
@@ -19,20 +21,14 @@ RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar
 ADD gitlab/ gitlab/config/
 ADD gitlab-shell/ gitlab-shell/
 
-RUN chown -R git gitlab/log/ && \
-	chown -R git gitlab/tmp/ && \
-	chmod -R u+rwX gitlab/log/ && \
+RUN chmod -R u+rwX gitlab/log/ && \
 	chmod -R u+rwX gitlab/tmp/ && \
 	chmod -R u+rwX gitlab/tmp/pids/ && \
 	chmod -R u+rwX gitlab/tmp/sockets/ && \
 	chmod -R u+rwX gitlab/public/uploads
 
 RUN mkdir gitlab-satellites && \
-	chown -R git gitlab-satellites && \
 	chmod u+rwx,g+rx,o-rwx gitlab-satellites
-
-USER git
-ENV HOME /home/git
 
 RUN git config --global user.name "GitLab" && \
 	git config --global user.email "gitlab@localhost" && \
