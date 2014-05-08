@@ -43,4 +43,4 @@ RUN mkdir -p /var/run/sshd && sed '/pam_loginuid.so/s/^/#/g' -i  /etc/pam.d/*
 
 # Start everything
 EXPOSE 22 8080
-ENTRYPOINT ["/stat"]
+ENTRYPOINT ["/start"]
