@@ -4,7 +4,7 @@ source /app/.env
 
 set -xe
 
-RAILS_ENV=${RAILS_ENV:=production}
+export RAILS_ENV=${RAILS_ENV:=production}
 
 onexit() {
   echo SIGINT received
@@ -20,7 +20,7 @@ mkdir -p /var/run/sshd
 /usr/bin/redis-server /etc/redis/redis.conf
 
 cd /home/git/gitlab
-su git -c "bundle exec rake assets:precompile"
+su git -c "bundle exec rake assets:precompile RAILS_ENV=production"
 su git -c "script/web start"
 su git -c "script/background_jobs start"
 
