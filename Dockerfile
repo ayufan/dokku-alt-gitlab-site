@@ -6,18 +6,34 @@ RUN apt-get install -y sudo build-essential zlib1g-dev libyaml-dev libssl-dev li
 
 RUN adduser --disabled-login --gecos 'GitLab' git
 
-ADD https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz /home/gitgitlab/
+ADD https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz /home/git/gitlab/
+ADD https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz /home/git/gitlab-shell/
 
-WORKDIR /home/git/gitlab
-RUN chown -R git log/ && \
-	chown -R git tmp/ && \
-	chmod -R u+rwX log/ && \
-	chmod -R u+rwX tmp/ \
-	chmod -R u+rwX tmp/pids/ && \
-	chmod -R u+rwX tmp/sockets/ && \
-	chmod -R u+rwX public/uploads
+ADD gitlab/ /home/git/gitlab/config/
+ADD gitlab-shell/ /home/git/gitlab-shell/
+
+
+RUN chown -R git /home/git/gitlab/log/ && \
+	chown -R git /home/git/gitlab/tmp/ && \
+	chmod -R u+rwX /home/git/gitlab/log/ && \
+	chmod -R u+rwX /home/git/gitlab/tmp/ \
+	chmod -R u+rwX /home/git/gitlab/tmp/pids/ && \
+	chmod -R u+rwX /home/git/gitlab/tmp/sockets/ && \
+	chmod -R u+rwX /home/git/gitlab/public/uploads
 
 RUN mkdir /home/git/gitlab-satellites && \
 	chown -R git /home/git/gitlab-satellites && \
 	chmod u+rwx,g+rx,o-rwx /home/git/gitlab-satellites
 
+USER git
+
+RUN git config --global user.name "GitLab" && \
+	git -H git config --global user.email "gitlab@localhost" && \
+	git config --global core.autocrlf input
+
+WORKDIR /home/git/gitlab
+RUN bundle install --deployment --without development test postgres aws
+RUN bundle exec rake assets:precompile RAILS_ENV=production
+
+WORKDIR /home/git/gitlab-shell
+RUN bundle install --deployment
