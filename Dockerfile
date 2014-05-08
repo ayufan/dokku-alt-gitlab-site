@@ -8,26 +8,28 @@ RUN apt-get install -y ca-certificates supervisor
 
 RUN adduser --disabled-login --gecos 'GitLab' git
 
-RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx -C /home/git/ && \
-	mv /home/git/gitlabhq-6.8.1 /home/git/gitlab
+WORKDIR /home/git
 
-RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx -C /home/git/ && \
-	mv /home/git/gitlab-shell-1.9.4 /home/git/gitlab-shell
+RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx && \
+	mv gitlabhq-6.8.1 gitlab
 
-ADD gitlab/ /home/git/gitlab/config/
-ADD gitlab-shell/ /home/git/gitlab-shell/
+RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx && \
+	mv gitlab-shell-1.9.4 gitlab-shell
 
-RUN chown -R git /home/git/gitlab/log/ && \
-	chown -R git /home/git/gitlab/tmp/ && \
-	chmod -R u+rwX /home/git/gitlab/log/ && \
-	chmod -R u+rwX /home/git/gitlab/tmp/ && \
-	chmod -R u+rwX /home/git/gitlab/tmp/pids/ && \
-	chmod -R u+rwX /home/git/gitlab/tmp/sockets/ && \
-	chmod -R u+rwX /home/git/gitlab/public/uploads
+ADD gitlab/ gitlab/config/
+ADD gitlab-shell/ gitlab-shell/
 
-RUN mkdir /home/git/gitlab-satellites && \
-	chown -R git /home/git/gitlab-satellites && \
-	chmod u+rwx,g+rx,o-rwx /home/git/gitlab-satellites
+RUN chown -R git gitlab/log/ && \
+	chown -R git gitlab/tmp/ && \
+	chmod -R u+rwX gitlab/log/ && \
+	chmod -R u+rwX gitlab/tmp/ && \
+	chmod -R u+rwX gitlab/tmp/pids/ && \
+	chmod -R u+rwX gitlab/tmp/sockets/ && \
+	chmod -R u+rwX gitlab/public/uploads
+
+RUN mkdir gitlab-satellites && \
+	chown -R git gitlab-satellites && \
+	chmod u+rwx,g+rx,o-rwx gitlab-satellites
 
 USER git
 
