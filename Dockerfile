@@ -21,8 +21,6 @@ RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar
 ADD gitlab/ /home/git/gitlab/config/
 ADD gitlab-shell/ /home/git/gitlab-shell/
 
-RUN ls -al /home/git/gitlab/config/
-
 RUN chmod -R u+rwX gitlab/log/ && \
 	chmod -R u+rwX gitlab/tmp/ && \
 	chmod -R u+rwX gitlab/tmp/pids/ && \
