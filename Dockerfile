@@ -8,10 +8,10 @@ RUN apt-get install -y ca-certificates supervisor
 
 RUN adduser --disabled-login --gecos 'GitLab' git
 
-RUN curl https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx -C /home/git/ && \
+RUN curl -L https://github.com/gitlabhq/gitlabhq/archive/v6.8.1.tar.gz | tar -zx -C /home/git/ && \
 	mv gitlabhq-6.8.1 gitlab
 
-RUN curl https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx -C /home/git/ && \
+RUN curl -L https://github.com/gitlabhq/gitlab-shell/archive/v1.9.4.tar.gz | tar -zx -C /home/git/ && \
 	mv gitlab-shell-1.9.4 gitlab-shell
 
 ADD gitlab/ /home/git/gitlab/config/
