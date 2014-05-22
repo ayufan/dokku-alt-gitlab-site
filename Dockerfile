@@ -10,7 +10,7 @@ USER git
 WORKDIR /home/git
 ENV HOME /home/git
 
-RUN git clone https://github.com/gitlabhq/gitlabhq.git gitlab -b v6.8.1 --depth=1
+RUN git clone https://github.com/gitlabhq/gitlabhq.git gitlab -b v6.9.0 --depth=1
 RUN git clone https://github.com/gitlabhq/gitlab-shell.git gitlab-shell -b v1.9.3 --depth=1
 
 RUN chmod -R u+rwX gitlab/log/ && \
@@ -23,7 +23,7 @@ RUN mkdir gitlab-satellites && \
 	chmod u+rwx,g+rx,o-rwx gitlab-satellites
 
 RUN git config --global user.name "GitLab" && \
-	git config --global user.email "gitlab@localhost" && \
+	git config --global user.email "gitlab@ayufan.eu" && \
 	git config --global core.autocrlf input
 
 WORKDIR /home/git/gitlab-shell
